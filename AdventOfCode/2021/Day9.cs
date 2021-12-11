@@ -90,6 +90,16 @@ namespace AdventOfCode._2021
             return source[point.Y][point.X];
         }
 
+        public static void Set(this List<List<int>> source, Point2D point, int value)
+        {
+            source[point.Y][point.X] = value;
+        }
+
+        public static int Increment(this List<List<int>> source, Point2D point)
+        {
+            return ++source[point.Y][point.X];
+        }
+
         public static bool Contains(this List<List<int>> source, Point2D point)
         {
             return point.Y >= 0 && source.Count > point.Y && point.X >= 0 && source[point.Y].Count > point.X;

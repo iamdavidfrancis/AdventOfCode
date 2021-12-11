@@ -20,5 +20,20 @@ namespace AdventOfCode
                 new Point2D(source.X - 1, source.Y),
             };
         }
+
+        public static IEnumerable<Point2D> NeighborsWithDiagonal(this Point2D source)
+        {
+            return new List<Point2D>
+            {
+                new Point2D(source.X, source.Y + 1),
+                new Point2D(source.X, source.Y - 1),
+                new Point2D(source.X + 1, source.Y),
+                new Point2D(source.X - 1, source.Y),
+                new Point2D(source.X + 1, source.Y + 1),
+                new Point2D(source.X - 1, source.Y - 1),
+                new Point2D(source.X + 1, source.Y - 1),
+                new Point2D(source.X - 1, source.Y + 1),
+            };
+        }
     }
 }
