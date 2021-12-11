@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode._2021
 {
-    internal class Day5 : IAsyncAdventOfCodeProblem
+    internal class Day05 : IAsyncAdventOfCodeProblem
     {
         public async Task RunProblemAsync()
         {
@@ -17,7 +17,7 @@ namespace AdventOfCode._2021
             int maxX = 0;
             int maxY = 0;
 
-            using (TextReader reader = File.OpenText("./2021/Day5Input.txt"))
+            using (TextReader reader = File.OpenText("./2021/Day05Input.txt"))
             {
                 string? line;
                 while ((line = await reader.ReadLineAsync()) != null)

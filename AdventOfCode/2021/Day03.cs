@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode._2021
 {
-    internal class Day3 : IAsyncAdventOfCodeProblem
+    internal class Day03 : IAsyncAdventOfCodeProblem
     {
         public async Task RunProblemAsync()
         {
 
-            using (TextReader reader = File.OpenText("./2021/Day3Input.txt"))
+            using (TextReader reader = File.OpenText("./2021/Day03Input.txt"))
             {
                 string? line;
 

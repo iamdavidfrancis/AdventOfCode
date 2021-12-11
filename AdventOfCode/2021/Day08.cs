@@ -7,11 +7,11 @@ using MathNet.Numerics.Statistics;
 
 namespace AdventOfCode._2021
 {
-    internal class Day8 : IAsyncAdventOfCodeProblem
+    internal class Day08 : IAsyncAdventOfCodeProblem
     {
         public async Task RunProblemAsync()
         {
-            using (TextReader reader = File.OpenText("./2021/Day8Input.txt"))
+            using (TextReader reader = File.OpenText("./2021/Day08Input.txt"))
             {
                 string? line;
                 var sum = 0;

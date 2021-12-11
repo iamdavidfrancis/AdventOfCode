@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode._2021
 {
-    internal class Day4 : IAsyncAdventOfCodeProblem
+    internal class Day04 : IAsyncAdventOfCodeProblem
     {
         public async Task RunProblemAsync()
         {
-            using (TextReader reader = File.OpenText("./2021/Day4Input.txt"))
+            using (TextReader reader = File.OpenText("./2021/Day04Input.txt"))
             {
                 var bingoNumberInput = await reader.ReadLineAsync();
 

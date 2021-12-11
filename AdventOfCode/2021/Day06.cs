@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode._2021
 {
-    internal class Day6 : IAdventOfCodeProblem
+    internal class Day06 : IAdventOfCodeProblem
     {
         private Dictionary<int, ulong> FishCount;
 

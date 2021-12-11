@@ -7,7 +7,7 @@ using MathNet.Numerics.Statistics;
 
 namespace AdventOfCode._2021
 {
-    internal class Day7 : IAdventOfCodeProblem
+    internal class Day07 : IAdventOfCodeProblem
     {
         public void RunProblem()
         {

@@ -7,13 +7,13 @@ using MathNet.Numerics.Statistics;
 
 namespace AdventOfCode._2021
 {
-    internal class Day9 : IAsyncAdventOfCodeProblem
+    internal class Day09 : IAsyncAdventOfCodeProblem
     {
         public async Task RunProblemAsync()
         {
             List<List<int>> heightMap = new List<List<int>>();
 
-            using (TextReader reader = File.OpenText("./2021/Day9Input.txt"))
+            using (TextReader reader = File.OpenText("./2021/Day09Input.txt"))
             {
                 string? line;
                 while ((line = await reader.ReadLineAsync()) != null)

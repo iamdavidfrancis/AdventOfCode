@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode._2021
 {
-    internal class Day2 : IAsyncAdventOfCodeProblem
+    internal class Day02 : IAsyncAdventOfCodeProblem
     {
         public async Task RunProblemAsync()
         {
@@ -14,7 +14,7 @@ namespace AdventOfCode._2021
             int aim = 0;
             int depth = 0;
 
-            using (TextReader reader = File.OpenText("./2021/Day2Input.txt"))
+            using (TextReader reader = File.OpenText("./2021/Day02Input.txt"))
             {
                 string? line;
 
