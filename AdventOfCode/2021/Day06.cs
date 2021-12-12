@@ -8,7 +8,7 @@ namespace AdventOfCode._2021
 {
     internal class Day06 : IAdventOfCodeProblem
     {
-        private Dictionary<int, ulong> FishCount;
+        private Dictionary<int, ulong> FishCount = new();
 
         public void RunProblem()
         {

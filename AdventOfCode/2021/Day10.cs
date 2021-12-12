@@ -16,7 +16,7 @@ namespace AdventOfCode._2021
 
             using (TextReader reader = File.OpenText("./2021/Day10Input.txt"))
             {
-                int sum = 0;
+                // int sum = 0;
                 List<ulong> lineScores = new();
 
                 string? line;

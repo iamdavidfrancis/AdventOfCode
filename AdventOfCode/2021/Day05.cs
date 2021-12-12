@@ -107,7 +107,7 @@ namespace AdventOfCode._2021
                 return new Line(new Point2D(startX, startY), new Point2D(endX, endY));
             }
 
-            throw new Exception("Fuck");
+            throw new Exception("Something went wrong");
         }
 
         private record Line(Point2D Start, Point2D End);
