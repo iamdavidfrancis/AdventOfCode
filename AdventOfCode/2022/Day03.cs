@@ -5,24 +5,24 @@ namespace AdventOfCode._2022
         public async Task RunProblemAsync()
         {
             // Part 1
-            // using (TextReader reader = File.OpenText("./2022/Day03.txt"))
-            // {
-            //     string? line;
-            //     int score = 0;
+            using (TextReader reader = File.OpenText("./2022/Day03.txt"))
+            {
+                string? line;
+                int score = 0;
 
-            //     while ((line = await reader.ReadLineAsync()) != null)
-            //     { 
-            //         var mid = line.Length / 2;
-            //         var left = line.Take(mid);
-            //         var right = line.Skip(mid);
+                while ((line = await reader.ReadLineAsync()) != null)
+                { 
+                    var mid = line.Length / 2;
+                    var left = line.Take(mid);
+                    var right = line.Skip(mid);
 
-            //         var sol = left.Intersect(right);
+                    var sol = left.Intersect(right);
 
-            //         score += sol.Select(c => GetVal(c)).Sum();
-            //     }
+                    score += sol.Select(c => GetVal(c)).Sum();
+                }
 
-            //     Console.WriteLine(score);
-            // }
+                Console.WriteLine($"Part 1: {score}");
+            }
 
             // Part 2
             using (TextReader reader = File.OpenText("./2022/Day03.txt"))
@@ -45,7 +45,7 @@ namespace AdventOfCode._2022
                     }
                 }
 
-                Console.WriteLine(score);
+                Console.WriteLine($"Part 2: {score}");
             }            
         }
 
