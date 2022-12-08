@@ -7,7 +7,6 @@ namespace AdventOfCode._2022
         // Note: For this, I pre-processed the input slightly.
         public async Task RunProblemAsync()
         {
-            // Part 1
             using (TextReader reader = File.OpenText("./2022/Day07.txt"))
             {
                 string? line;
@@ -16,6 +15,7 @@ namespace AdventOfCode._2022
                 };
 
                 List<DirectoryNode> directories = new();
+                directories.Add(root);
 
                 Node current = root;
 
