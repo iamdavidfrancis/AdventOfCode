@@ -4,7 +4,6 @@ namespace AdventOfCode._2022
 {
     internal class Day09 : IAsyncAdventOfCodeProblem
     {
-        // Note: For this, I pre-processed the input slightly.
         public async Task RunProblemAsync()
         {
             using (TextReader reader = File.OpenText("./2022/Day09.txt"))
