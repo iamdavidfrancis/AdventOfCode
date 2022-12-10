@@ -54,7 +54,6 @@ namespace AdventOfCode._2022
                         Console.Write(".");
                     }
 
-
                     if (pos == 39) {
                         Console.WriteLine();
                     }
