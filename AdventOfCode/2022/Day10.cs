@@ -54,7 +54,7 @@ namespace AdventOfCode._2022
                         Console.Write(".");
                     }
 
-                    if (pos == 39) {
+                    if (pos == 39) { // The fuck
                         Console.WriteLine();
                     }
                 }
@@ -62,7 +62,7 @@ namespace AdventOfCode._2022
         }
 
         private IEnumerable<Result> GetScores(Queue<Operation> operations, bool part1 = false) {
-            int clock = part1 ? 1 : 0;
+            int clock = part1 ? 1 : 0; // Dirty hack. No idea why this happens.
             int x = 1;
             
             yield return new Result(clock, x * clock, x);
