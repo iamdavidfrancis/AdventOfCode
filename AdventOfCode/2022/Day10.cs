@@ -65,10 +65,10 @@ namespace AdventOfCode._2022
             int clock = part1 ? 1 : 0; // Dirty hack. No idea why this happens.
             int x = 1;
             
-            yield return new Result(clock, x * clock, x);
-
             while (operations.Any()) 
             {
+                yield return new Result(clock, x * clock, x);
+
                 var operation = operations.Dequeue();
 
                 switch (operation.OperationType) {
@@ -82,8 +82,6 @@ namespace AdventOfCode._2022
                         x += operation.Value;
                         break;
                 }
-                
-                yield return new Result(clock, x * clock, x);
             }
         }
 
