@@ -12,8 +12,7 @@ namespace AdventOfCode._2022
         
         public async Task RunProblemAsync()
         {
-            // I could have used a list but I was tired. Sue me.
-            Dictionary<int, Monkey> monkeys = new();
+            List<Monkey> monkeys = new();
 
             using (TextReader reader = File.OpenText("./2022/Day11.txt"))
             {
@@ -26,7 +25,7 @@ namespace AdventOfCode._2022
                 {
                     if (string.IsNullOrEmpty(line)) {
                         monkey = ParseMonkey(monkeyLines, out monkeyId);
-                        monkeys.Add(monkeyId, monkey);
+                        monkeys.Add(monkey);
                         monkeyLines = new();
                     }
                     else
@@ -37,13 +36,17 @@ namespace AdventOfCode._2022
 
                 // Add last monkey
                 monkey = ParseMonkey(monkeyLines, out monkeyId);
-                monkeys.Add(monkeyId, monkey);
-                monkeyLines = new();
+                monkeys.Add(monkey);
 
                 // Cheeky solve so I don't need BigInteger (Which takes insanely long to execute)
                 // Originally this line was:
                 // this.globalModulo = monkeys.Select(m => m.Value.TestDivisible).Aggregate((m,i) => m*i);
-                this.globalModulo = (long)AoCMath.LCM(monkeys.Select(m => (ulong)m.Value.TestDivisible).ToArray());
+                this.globalModulo = (long)AoCMath.LCM(monkeys.Select(m => (ulong)m.TestDivisible).ToArray());
+
+                // We can mod the worry by the Least Common Multiple of all the monkeys divisors because
+                // a % LCM(b, c, d) = e => a % b == e % b, a % c == e % c, etc. 
+                // Originally I didn't use the LCM, instead going with the product of all the divisors, but the LCM
+                // is valid and gives us the potential for a smaller modulo (not that I expect it to be bigger than long)
 
                 for (int i = 0; i < (IsPart1 ? 20 : 10000); i++) {
                     this.DoRound(monkeys);
@@ -54,20 +57,24 @@ namespace AdventOfCode._2022
                     Log($"Monkey {i} inspected items {monkeys[i].InspectionCount} times.");
                 }
 
-                var monkeyBusiness = monkeys.Values.Select(m => m.InspectionCount).OrderByDescending(c => c).Take(2).Aggregate((a, b) => a * b);
+                var monkeyBusiness = monkeys
+                    .Select(m => m.InspectionCount)
+                    .OrderByDescending(c => c)
+                    .Take(2)
+                    .Aggregate((a, b) => a * b);
 
                 Console.WriteLine($"Solution: {monkeyBusiness}");
             }
         }
 
-        private void DoRound(Dictionary<int, Monkey> monkeys) {
+        private void DoRound(List<Monkey> monkeys) {
             for (int i = 0; i < monkeys.Count; i++)
             {
                 this.ProcessMonkey(i, monkeys);
             }
         }
 
-        private void ProcessMonkey(int monkeyId, Dictionary<int, Monkey> monkeys)
+        private void ProcessMonkey(int monkeyId, List<Monkey> monkeys)
         {
             var monkey = monkeys[monkeyId];
 
@@ -100,37 +107,34 @@ namespace AdventOfCode._2022
 
         private Monkey ParseMonkey(List<string> MonkeyLines, out int monkeyId)
         {
-            Regex monkeyIdPattern = new Regex(@"Monkey (?<monkeyId>\d):");
-            Match monkeyIdMatch = monkeyIdPattern.Match(MonkeyLines[0]);
-            monkeyId = Int32.Parse(monkeyIdMatch.Groups["monkeyId"].Value);
+            Regex pattern = new Regex(@"Monkey (?<monkeyId>\d):");
+            Match match = pattern.Match(MonkeyLines[0]);
+            monkeyId = Int32.Parse(match.Groups["monkeyId"].Value);
 
             // Items
-            Regex itemsPattern = new Regex(@"  Starting items: (?<items>.+)");
-            Match itemsMatch = itemsPattern.Match(MonkeyLines[1]);
-            string itemsString = itemsMatch.Groups["items"].Value;
-            Queue<long> items  = itemsString.Split(", ").Select(i => Int64.Parse(i)).ToQueue();
+            pattern = new Regex(@"  Starting items: (?<items>.+)");
+            match = pattern.Match(MonkeyLines[1]);
+            Queue<long> items  = match.Groups["items"].Value.Split(", ").Select(i => Int64.Parse(i)).ToQueue();
 
             // Operation
-            Regex operationPattern = new Regex(@"  Operation: new = old (?<operation>.+)");
-            Match operationMatch = operationPattern.Match(MonkeyLines[2]);
-            string operationString = operationMatch.Groups["operation"].Value;
-            var operation = BuildOperation(operationString);
+            pattern = new Regex(@"  Operation: new = old (?<operation>.+)");
+            match = pattern.Match(MonkeyLines[2]);
+            var operation = BuildOperation(match.Groups["operation"].Value);
 
             // Test
-            Regex testPattern = new Regex(@"Test: divisible by (?<test>.+)");
-            Match testMatch = testPattern.Match(MonkeyLines[3]);
-            string testString = testMatch.Groups["test"].Value;
-            var test = Int32.Parse(testString);
+            pattern = new Regex(@"Test: divisible by (?<test>.+)");
+            match = pattern.Match(MonkeyLines[3]);
+            var test = Int32.Parse(match.Groups["test"].Value);
 
             // True Monkey
-            Regex truePattern = new Regex(@"    If true: throw to monkey (?<test>.+)");
-            Match trueMatch = truePattern.Match(MonkeyLines[4]);
-            var trueMonkey = Int32.Parse(trueMatch.Groups["test"].Value);
+            pattern = new Regex(@"    If true: throw to monkey (?<test>.+)");
+            match = pattern.Match(MonkeyLines[4]);
+            var trueMonkey = Int32.Parse(match.Groups["test"].Value);
 
             // False Monkey
-            Regex falsePattern = new Regex(@"    If false: throw to monkey (?<test>.+)");
-            Match falseMatch = falsePattern.Match(MonkeyLines[5]);
-            var falseMonkey = Int32.Parse(falseMatch.Groups["test"].Value);
+            pattern = new Regex(@"    If false: throw to monkey (?<test>.+)");
+            match = pattern.Match(MonkeyLines[5]);
+            var falseMonkey = Int32.Parse(match.Groups["test"].Value);
 
             return new Monkey(items, operation, test, trueMonkey, falseMonkey);
         }
