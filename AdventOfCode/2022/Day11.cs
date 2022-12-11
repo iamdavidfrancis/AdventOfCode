@@ -8,7 +8,7 @@ namespace AdventOfCode._2022
         private const bool ShouldLog = false;
         private const bool IsPart1 = false;
 
-        private int globalModulo;
+        private long globalModulo;
         
         public async Task RunProblemAsync()
         {
@@ -41,7 +41,7 @@ namespace AdventOfCode._2022
                 monkeyLines = new();
 
                 // Cheeky solve so I don't need BigInteger (Which takes insanely long to execute)
-                this.globalModulo = monkeys.Select(m => m.Value.TestDivisible).Aggregate((m,i) => m*i);
+                this.globalModulo = (long)AoCMath.LCM(monkeys.Select(m => (ulong)m.Value.TestDivisible).ToArray());
 
                 for (int i = 0; i < (IsPart1 ? 20 : 10000); i++) {
                     this.DoRound(monkeys);
