@@ -41,6 +41,8 @@ namespace AdventOfCode._2022
                 monkeyLines = new();
 
                 // Cheeky solve so I don't need BigInteger (Which takes insanely long to execute)
+                // Originally this line was:
+                // this.globalModulo = monkeys.Select(m => m.Value.TestDivisible).Aggregate((m,i) => m*i);
                 this.globalModulo = (long)AoCMath.LCM(monkeys.Select(m => (ulong)m.Value.TestDivisible).ToArray());
 
                 for (int i = 0; i < (IsPart1 ? 20 : 10000); i++) {
