@@ -17,10 +17,10 @@ namespace AdventOfCode
         {
             return new List<Point2D>
             {
-                new Point2D(source.X, source.Y + 1),
-                new Point2D(source.X, source.Y - 1),
-                new Point2D(source.X + 1, source.Y),
-                new Point2D(source.X - 1, source.Y),
+                source.Up(),
+                source.Down(),
+                source.Right(),
+                source.Left(),
             };
         }
 
@@ -28,14 +28,14 @@ namespace AdventOfCode
         {
             return new List<Point2D>
             {
-                new Point2D(source.X, source.Y + 1),
-                new Point2D(source.X, source.Y - 1),
-                new Point2D(source.X + 1, source.Y),
-                new Point2D(source.X - 1, source.Y),
-                new Point2D(source.X + 1, source.Y + 1),
-                new Point2D(source.X - 1, source.Y - 1),
-                new Point2D(source.X + 1, source.Y - 1),
-                new Point2D(source.X - 1, source.Y + 1),
+                source.Up(),
+                source.Down(),
+                source.Right(),
+                source.Left(),
+                source.Up().Right(),
+                source.Up().Left(),
+                source.Down().Right(),
+                source.Down().Left(),
             };
         }
 
