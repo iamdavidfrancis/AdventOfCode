@@ -1,7 +1,7 @@
 ﻿
 using AdventOfCode;
 
-var problem = new AdventOfCode._2022.Day13();
+var problem = new AdventOfCode._2022.Day14();
 
 if (problem is IAdventOfCodeProblem syncProblem)
 {
