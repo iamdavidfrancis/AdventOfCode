@@ -136,14 +136,6 @@ namespace AdventOfCode._2022
             }
         }
 
-        private void WriteIndent(int indent)
-        {
-            for(int i = 0; i < indent; i++)
-            {
-                Console.Write("  ");
-            }
-        }
-
         private enum CompareResult
         {
             CorrectOrder,
