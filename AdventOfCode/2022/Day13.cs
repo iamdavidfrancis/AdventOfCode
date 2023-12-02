@@ -52,10 +52,12 @@ namespace AdventOfCode._2022
 
             packets.Sort((JsonDocument left, JsonDocument right) => {
                 var result = CompareItems(left.RootElement, right.RootElement, 0, true);
-                return result switch {
+                return result switch
+                {
                     CompareResult.CorrectOrder => -1,
                     CompareResult.IncorrectOrder => 1,
                     CompareResult.Continue => 0,
+                    _ => throw new NotImplementedException(),
                 };                
             });
 

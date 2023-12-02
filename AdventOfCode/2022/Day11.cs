@@ -164,7 +164,9 @@ namespace AdventOfCode._2022
         private void Log(string message) {
             if (ShouldLog)
             {
+#pragma warning disable CS0162 // Unreachable code detected
                 Console.WriteLine(message);
+#pragma warning restore CS0162 // Unreachable code detected
             }
         }
 

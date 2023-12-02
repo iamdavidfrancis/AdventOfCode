@@ -49,6 +49,7 @@ namespace AdventOfCode._2022
                     // Find bounds
                     if (!Part2)
                     {
+#pragma warning disable CS0162 // Unreachable code detected
                         if (current.X < minX)
                         {
                             minX = current.X;
@@ -66,7 +67,8 @@ namespace AdventOfCode._2022
                         {
                             maxX = next.X;
                         }
-                    }  
+#pragma warning restore CS0162 // Unreachable code detected
+                    }
 
                     if (current.Y < minY)
                     {
