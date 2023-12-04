@@ -11,6 +11,11 @@ public static class TConverter
 
     public static object ChangeType(this object value, Type t)
     {
+        if (value.GetType() == t)
+        {
+            return value;
+        }
+
         TypeConverter tc = TypeDescriptor.GetConverter(t) ?? throw new InvalidOperationException();
         return tc.ConvertFrom(value) ?? throw new InvalidOperationException();
     }
