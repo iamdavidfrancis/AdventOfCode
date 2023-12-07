@@ -1,26 +1,18 @@
 namespace AdventOfCode._2023;
 
-public class DayXX : IAsyncAdventOfCodeProblem
+public class DayXX : AdventBase
 {
+    public override string FilePath => "./2023/DayXX.txt";
 
-    public async Task RunProblemAsync()
+    public override async Task<AdventResult> RunInternal(TextReader reader)
     {
-        using (TextReader reader = File.OpenText("./2023/Day0XX.txt"))
+        string? line;
+        
+        while ((line = await reader.ReadLineAsync()) != null) 
         {
-            string? line;
             
-            while ((line = await reader.ReadLineAsync()) != null) 
-            {
-                
-            }
-
-            Console.WriteLine("Part 1");
-            Console.WriteLine();
-
-            Console.WriteLine();
-
-            Console.WriteLine("Part 2");
-            Console.WriteLine();
         }
+
+        return new(string.Emtpy, string.Emtpy);
     }
 }

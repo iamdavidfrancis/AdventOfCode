@@ -1,27 +1,23 @@
-using System.Security.Cryptography.X509Certificates;
-using System.Text.Json;
-
 namespace AdventOfCode._2023;
 
-public class Day07 : IAsyncAdventOfCodeProblem
+public class Day07 : AdventBase
 {
+    public override string FilePath => "./2023/Day07.txt";
 
-    public async Task RunProblemAsync()
+    public override async Task<AdventResult> RunInternal(TextReader reader)
     {
-        using (TextReader reader = File.OpenText("./2023/Day07.txt"))
-        {
             string? line;
 
-            List<Hand> hands = [];
-            List<Hand> hands2 = [];
+            List<Day07Hand> hands = [];
+            List<Day07Hand> hands2 = [];
             
             while ((line = await reader.ReadLineAsync()) != null) 
             {
                 var parts = line.Split(" ", StringSplitOptions.TrimEntries);
-                var hand = Hand.Parse(parts[0]);
+                var hand = Day07Hand.Parse(parts[0]);
                 hand.Bid = int.Parse(parts[1]);
 
-                var hand2 = Hand.Parse(parts[0], isPart2: true);
+                var hand2 = Day07Hand.Parse(parts[0], isPart2: true);
                 hand2.Bid = int.Parse(parts[1]);
 
                 hands.Add(hand);
@@ -34,19 +30,12 @@ public class Day07 : IAsyncAdventOfCodeProblem
             var result1 = hands.Select((h, i) => h.Bid * (i + 1)).Sum();
             var result2 = hands2.Select((h, i) => h.Bid * (i + 1)).Sum();
 
-            Console.WriteLine("Part 1");
-            Console.WriteLine(result1);
-
-            Console.WriteLine();
-
-            Console.WriteLine("Part 2");
-            Console.WriteLine(result2);
-        }
+            return new(result1, result2);
     }
 
-    public class Hand : IComparable<Hand>
+    public class Day07Hand : IComparable<Day07Hand>
     {
-        private Hand(int[] values, HandType handType)
+        private Day07Hand(int[] values, Day07HandType handType)
         {
             this.Values = values;
             this.HandType = handType;
@@ -54,11 +43,11 @@ public class Day07 : IAsyncAdventOfCodeProblem
 
         public int[] Values { get; private set; }
 
-        public HandType HandType { get; private set; }
+        public Day07HandType HandType { get; private set; }
 
         public int Bid { get; set; }
 
-        public int CompareTo(Hand? other)
+        public int CompareTo(Day07Hand? other)
         {
             if (other == null)
             {
@@ -85,7 +74,7 @@ public class Day07 : IAsyncAdventOfCodeProblem
             return 0;
         }
 
-        public static Hand Parse(string handString, bool isPart2 = false)
+        public static Day07Hand Parse(string handString, bool isPart2 = false)
         {
             var values = new int[5];
 
@@ -121,7 +110,7 @@ public class Day07 : IAsyncAdventOfCodeProblem
 
             var groups = values.GroupBy(v => v);
 
-            HandType handType;
+            Day07HandType handType;
             int count;
 
             if (isPart2 && handString.Contains('J'))
@@ -136,31 +125,31 @@ public class Day07 : IAsyncAdventOfCodeProblem
                 switch (noJGroups.Count())
                 {
                     case 0:
-                        handType = HandType.FiveOfAKind;
+                        handType = Day07HandType.FiveOfAKind;
                         break;
                     case 1:
-                        handType = HandType.FiveOfAKind;
+                        handType = Day07HandType.FiveOfAKind;
                         break;
                     case 2:
                         var jGroup1Size = noJGroups.First().Count();
                         handType = jCount switch
                         {
-                            1 => (jGroup1Size == 2) ? HandType.FullHouse : HandType.FourOfAKind,// Two Pair or Three of a Kind initially
-                            2 => HandType.FourOfAKind,// One Pair initially
-                            3 => HandType.FourOfAKind,// High Card initially
-                            _ => HandType.FiveOfAKind,// High card initially
+                            1 => (jGroup1Size == 2) ? Day07HandType.FullHouse : Day07HandType.FourOfAKind,// Two Pair or Three of a Kind initially
+                            2 => Day07HandType.FourOfAKind,// One Pair initially
+                            3 => Day07HandType.FourOfAKind,// High Card initially
+                            _ => Day07HandType.FiveOfAKind,// High card initially
                         };
                         break;
                     case 3:
                         handType = jCount switch
                         {
-                            1 => HandType.ThreeOfAKind,// One Pair initially 
-                            _ => HandType.ThreeOfAKind,// High Card initially
+                            1 => Day07HandType.ThreeOfAKind,// One Pair initially 
+                            _ => Day07HandType.ThreeOfAKind,// High Card initially
                         };
                         break;
                     case 4:
                     default: 
-                        handType = HandType.OnePair;
+                        handType = Day07HandType.OnePair;
                         break;
                 }
             }
@@ -169,29 +158,29 @@ public class Day07 : IAsyncAdventOfCodeProblem
                 switch (groups.Count())
                 {
                     case 1:
-                        handType = HandType.FiveOfAKind;
+                        handType = Day07HandType.FiveOfAKind;
                         break;
                     case 2:
-                        handType = (groups.Max(c => c.Count()) == 3) ? HandType.FullHouse : HandType.FourOfAKind;
+                        handType = (groups.Max(c => c.Count()) == 3) ? Day07HandType.FullHouse : Day07HandType.FourOfAKind;
                         break;
                     case 3:
                         count = groups.First().Count();
-                        handType = (groups.Max(c => c.Count()) == 3) ? HandType.ThreeOfAKind : HandType.TwoPair;
+                        handType = (groups.Max(c => c.Count()) == 3) ? Day07HandType.ThreeOfAKind : Day07HandType.TwoPair;
                         break;
                     case 4:
-                        handType = HandType.OnePair;
+                        handType = Day07HandType.OnePair;
                         break;
                     default:
-                        handType = HandType.HighCard;
+                        handType = Day07HandType.HighCard;
                         break;
                 }
             }
 
-            return new Hand(values, handType);
+            return new Day07Hand(values, handType);
         }
     }
 
-    public enum HandType
+    public enum Day07HandType
         {
             HighCard = 0,
             OnePair,
