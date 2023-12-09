@@ -13,6 +13,6 @@ public class DayXX : AdventBase
             
         }
 
-        return new(string.Emtpy, string.Emtpy);
+        return new(string.Empty, string.Empty);
     }
 }

@@ -30,4 +30,9 @@ public record AdventResult(string Part1, string Part2)
         : this(Part1.ToString(), Part2.ToString())
     {
     }
+
+    public AdventResult(long Part1, long Part2)
+        : this(Part1.ToString(), Part2.ToString())
+    {
+    }
 }
