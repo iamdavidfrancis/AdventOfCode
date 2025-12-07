@@ -16,6 +16,11 @@ public static class TConverter
             return value;
         }
 
+        if (t == typeof(string) && value is char c)
+        {
+            return c.ToString();
+        }
+
         TypeConverter tc = TypeDescriptor.GetConverter(t) ?? throw new InvalidOperationException();
         return tc.ConvertFrom(value) ?? throw new InvalidOperationException();
     }
