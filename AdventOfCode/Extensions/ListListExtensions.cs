@@ -66,7 +66,7 @@ internal static class ListListExtensions
         return results;
     }
 
-    public static void IterateOverEntireMatrix<T>(this List<List<T>> source, Action<Point2D> action)
+    public static void IterateOverEntireMatrix<T>(this List<List<T>> source, Action<Point2D> action, Action? rowAction = null)
     {
         int yMax = source.Count;
         int xMax = source[0].Count;
@@ -77,6 +77,11 @@ internal static class ListListExtensions
             {
                 var searchCoords = new Point2D(x, y);
                 action.Invoke(searchCoords);
+            }
+
+            if (rowAction != null)
+            {
+                rowAction.Invoke();
             }
         }
     }

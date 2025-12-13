@@ -20,4 +20,17 @@ public static class IEnumerableExtensions {
 
         return source;
     }
+
+    public static void AddOrSet<TKey>(this Dictionary<TKey, long> source, TKey key, long value)
+        where TKey : notnull
+    {
+        if (!source.ContainsKey(key))
+        {
+            source[key] = value;
+        }
+        else
+        {
+            source[key] += value;
+        }
+    }
 }
